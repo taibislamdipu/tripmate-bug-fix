@@ -51,7 +51,7 @@
                     <input class="form-control" id="input-field" type="text" placeholder="Search items..." aria-label=""
                         aria-describedby="button-addon2">
                     <button class="btn btn-outline-secondary" type="button" id="search-btn"
-                        onclick="loadProducts()">Search <i class="fas fa-search"></i> </button>
+                        onclick="alertMessage()">Search <i class="fas fa-search"></i> </button>
                 </div>
             </header>
         </section>
@@ -118,7 +118,7 @@
                         </tbody>
                     </table>
                     <div class="parces text-center">
-                        <button class="btn btn-primary text-center">Buy Now</button>
+                        <button onclick="alertMessage()" class="btn btn-primary text-center">Buy Now</button>
                     </div>
                 </div>
             </div>

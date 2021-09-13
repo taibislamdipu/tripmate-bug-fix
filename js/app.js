@@ -24,7 +24,7 @@ const showProducts = async (products) => {
                   <img src="${product.hasOwnProperty('image') && product.image}" class="card-img-top w-50 mx-auto p-3" style="height: 200px;">
               </div>
 
-              <h2 class="product-title">${product.hasOwnProperty('title') && product.title && product.title}</h2>
+              <h2 class="card-title">${product.hasOwnProperty('title') && product.title && product.title}</h2>
               <p>Category: ${product.hasOwnProperty('category') && product.category && product.category}</p>
     
               <div class="d-flex justify-content-between">
@@ -115,7 +115,7 @@ const reloadPage = () => {
     window.location.reload();
 }
 
-
+// get product id and set it dynamecally and send it to showModal Function
 const showDetails = async id => {
     console.log("showDetails btn clicked!", id);
 
@@ -123,12 +123,13 @@ const showDetails = async id => {
 
     await fetch(url)
         .then(res => res.json())
-        .then(data => showModal(data.description))
+        .then(data => showModal(data))
 
 }
 
-const showModal = async desc => {
-    console.log(desc);
+// modal will show description of the product
+const showModal = async data => {
+    console.log(data);
     const div = document.createElement("div");
 
     div.innerHTML = `
@@ -136,26 +137,33 @@ const showModal = async desc => {
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class=" modal-title" id="exampleModalLabel">
+                            ${data.hasOwnProperty('title') && data.title}
+                        </h5>
+                <div>
+                  <img src="${data.hasOwnProperty('image') && data.image}" class="card-img-top mx-auto p-3">
+                </div>
             </div>
+
             <div class="modal-body">
-                ${desc}
+                ${data.description}
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
+            
             </div>
         </div>
     </div>
-    
     `
-
-
-
+        ;
     document.getElementById("product-info-modal").appendChild(div);
+}
 
-
+// upcomming features message function
+const alertMessage = () => {
+    alert("This features is coming soon!")
 }

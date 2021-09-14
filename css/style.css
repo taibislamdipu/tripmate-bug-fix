@@ -21,13 +21,18 @@ a {
     border: #DCD6CC 1px solid;
 }
 
-.custom-gray-btn {
+.fa-star {
+    color: #ffa41c;
+}
+
+.custom-gray-btn:hover {
     background-color: #372213;
     color: #fff;
 }
 
-.custom-gray-btn:hover {
-    color: #fff;
+.custom-yellow-btn:hover {
+    background-color: #ffc107;
+    color: #000;
 }
 
 
@@ -48,8 +53,22 @@ a {
     margin: auto;
     align-items: center;
     justify-content: center;
-    grid-row-gap: 10px;
+    grid-row-gap: 50px;
     grid-column-gap: 10px;
+}
+
+.card {
+    width: 21rem;
+    height: 450px;
+}
+
+.card:hover .product-title {
+    color: red;
+}
+
+.product-image {
+    width: 150px;
+    height: 150px;
 }
 
 
@@ -73,8 +92,7 @@ a {
   for card animation end
 ----------------------------------*/
 
-
-.card-title{
+.product-title {
     font-size: 1rem;
 }
 
@@ -94,6 +112,52 @@ a {
 .cart-main {
     padding-right: 30px;
 }
+
+
+/* ---------------------------------- 
+           footer section
+---------------------------------- */
+
+footer {
+    text-align: center;
+    background-color: #f4f1ea;
+    /* border: 1px solid #372213; */
+    box-shadow: 0px 0px 1px 0px #333333;
+    border-color: #DCD6CC;
+}
+
+.icon {
+    font-size: 32px;
+    margin-left: 14px;
+    color: #372213;
+}
+
+.icon:hover {
+    color: #000;
+}
+
+.social-icons a {
+    text-decoration: none;
+}
+
+.footer-logo img {
+    width: 300px;
+}
+
+
+/* .footer-content {
+    padding: 15px;
+} */
+
+
+/* ---------------------------------- 
+          footer section
+---------------------------------- */
+
+
+/* ---------------------------------- 
+          Media queries
+---------------------------------- */
 
 @media only screen and (max-width: 768px) {
     #all-products {

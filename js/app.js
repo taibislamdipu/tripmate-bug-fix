@@ -1,4 +1,4 @@
-const loadProducts = async () => {
+const loadProducts = async() => {
     const url = `https://fakestoreapi.com/products`;
     await fetch(url)
         .then((response) => response.json())
@@ -7,7 +7,7 @@ const loadProducts = async () => {
 loadProducts();
 
 // show all product in UI 
-const showProducts = async (products) => {
+const showProducts = async products => {
     const allProducts = products.map((pd) => pd);
     console.log(allProducts);
     for (const product of allProducts) {
@@ -21,27 +21,31 @@ const showProducts = async (products) => {
       <div class="card trans-card">
           <div class="card-body">
               <div>
-                  <img src="${product.hasOwnProperty('image') && product.image}" class="card-img-top w-50 mx-auto p-3" style="height: 200px;">
+                  <img src="${product.hasOwnProperty('image') && product.image}" class="product-image">
               </div>
 
-              <h2 class="card-title">${product.hasOwnProperty('title') && product.title && product.title}</h2>
-              <p>Category: ${product.hasOwnProperty('category') && product.category && product.category}</p>
-    
-              <div class="d-flex justify-content-between">
-                <p>Rating: ${product.hasOwnProperty('rating') && product.rating && product.rating.rate}</p>
-                <p>${product.hasOwnProperty('rating') && product.rating && product.rating.count} ratings</p>
-              </div>
+              <div class="mt-4">
+                    <h2 class="product-title">${product.hasOwnProperty('title') && product.title && product.title}</h2>
+                    <p class="text-muted">Category: ${product.hasOwnProperty('category') && product.category && product.category}</p>
+            
+                    <div class="d-flex justify-content-center">
+                        <p><i class="fas fa-star"></i> ${product.hasOwnProperty('rating') && product.rating && product.rating.rate} </p>
+                            <span class="mx-1">/</span>
+                        <p>${product.hasOwnProperty('rating') && product.rating && product.rating.count} Reviews</p>
+                        
+                    </div>
 
-              <h6>Price: $ ${product.hasOwnProperty('price') && product.category && product.price}</h6>
-              
-              <div class="">
-                    <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="btn btn-warning">
-                         <i class="fas fa-shopping-cart"></i> Add to cart
-                    </button>
+                    <p class="fw-bold">Price: $ ${product.hasOwnProperty('price') && product.category && product.price}</p>
+                    
+                    <div>
+                            <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="btn btn-outline-secondary custom-yellow-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to cart
+                            </button>
 
-                    <button onclick="showDetails(${product.id})" type="button" class="btn custom-gray-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <i class="fas fa-info-circle"></i> Details
-                    </button>
+                            <button onclick="showDetails(${product.id})" type="button" class="btn btn-outline-secondary custom-gray-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="fas fa-info-circle"></i> Details
+                            </button>
+                    </div>
               </div>
 
           </div>
@@ -52,6 +56,7 @@ const showProducts = async (products) => {
     }
 };
 
+// cart product count
 let count = 0;
 const addToCart = (id, price) => {
     count = count + 1;
@@ -62,6 +67,7 @@ const addToCart = (id, price) => {
 
     updateTotal();
 };
+
 
 const getInputValue = (id) => {
     const element = document.getElementById(id).innerText;
@@ -74,13 +80,11 @@ const updatePrice = (id, value) => {
     const convertedOldPrice = getInputValue(id);
     const convertPrice = parseFloat(value);
     const total = convertedOldPrice + convertPrice;
-    // document.getElementById(id).innerText = Math.round(total);
     document.getElementById(id).innerText = total.toFixed(2);
 };
 
 // set innerText function
 const setInnerText = (id, value) => {
-    // document.getElementById(id).innerText = Math.round(value);
     document.getElementById(id).innerText = value.toFixed(2);
 };
 
@@ -115,7 +119,7 @@ const reloadPage = () => {
     window.location.reload();
 }
 
-// get product id and set it dynamecally and send it to showModal Function
+
 const showDetails = async id => {
     console.log("showDetails btn clicked!", id);
 
@@ -127,40 +131,17 @@ const showDetails = async id => {
 
 }
 
-// modal will show description of the product
+// for display modal
 const showModal = async data => {
-    console.log(data);
-    const div = document.createElement("div");
 
-    div.innerHTML = `
-    
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        <h5 class=" modal-title" id="exampleModalLabel">
-                            ${data.hasOwnProperty('title') && data.title}
-                        </h5>
-                <div>
-                  <img src="${data.hasOwnProperty('image') && data.image}" class="card-img-top mx-auto p-3">
-                </div>
-            </div>
-
-            <div class="modal-body">
-                ${data.description}
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-            
-            </div>
-        </div>
-    </div>
-    `
-        ;
-    document.getElementById("product-info-modal").appendChild(div);
+    const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.querySelector(".modal-body");
+    const modalImg = document.getElementById("modalImg");
+    modalImg.innerHTML = `
+        <img src="${data.hasOwnProperty('image') && data.image}" class="card-img-top mx-auto p-3">
+    `;
+    modalTitle.innerHTML = data.hasOwnProperty('title') && data.title;
+    modalBody.innerHTML = data.hasOwnProperty('description') && data.description;
 }
 
 // upcomming features message function
